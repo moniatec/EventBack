@@ -17,23 +17,13 @@ app.use((req, res, next) => {
 
 // Custom error handlers.
 
-// Error handler to log errors.
-app.use((err, req, res, next) => {
-  if (environment === "production") {
-    // TODO Log the error to the database.
-  } else {
-    console.error(err);
-  }
-  next(err);
-});
-
 // Generic error handler.
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
   const isProduction = environment === "production";
-  res.render("error", {
-    title: "Server Error",
-    message: isProduction ? null : err.message,
+  res.json({
+    title: err.title || "Server Error",
+    message: err.message,
     stack: isProduction ? null : err.stack,
   });
 });
