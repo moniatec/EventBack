@@ -1,5 +1,6 @@
 const express = require("express");
 const morgan = require("morgan");
+const { environment } = require('./config');
 const app = express();
 
 app.use(morgan("dev"));
