@@ -19,6 +19,16 @@ const validateEmailAndPassword = [
     handleValidationErrors,
 ];
 
+router.get(
+    "/:id",
+    requireAuth,
+    asyncHandler(async (req, res, next) => {
+        const userId = parseInt(req.params.id, 10);
+        const user = await User.findByPk(userId);
+        res.json({ user });
+    })
+);
+
 router.post(
     "/",
     check("username")
@@ -26,9 +36,9 @@ router.post(
         .withMessage("Please provide a username"),
     validateEmailAndPassword,
     asyncHandler(async (req, res) => {
-        const { username, email, password } = req.body;
+        const { username, email, password, avatarUrl } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({ username, email, hashedPassword });
+        const user = await User.create({ username, email, hashedPassword, avatarUrl });
 
         const token = getUserToken(user);
         res.status(201).json({
@@ -73,14 +83,6 @@ router.get(
     })
 );
 
-router.get(
-    "/:id",
-    requireAuth,
-    asyncHandler(async (req, res, next) => {
-        const userId = parseInt(req.params.id, 10);
-        const user = await User.findByPk(userId);
-        res.json({ user });
-    })
-);
+
 
 module.exports = router;

@@ -11,6 +11,7 @@ const getUserToken = (user) => {
     const userDataForToken = {
         id: user.id,
         email: user.email,
+        avatarUrl: user.avatarUrl
     };
 
     // Create the token.

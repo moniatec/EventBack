@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey: "eventId",
       otherKey: "userId"
     });
-    Tweet.belongsTo(models.User, {
+    Event.belongsTo(models.User, {
       as: "host",
       foreignKey: "hostId",
     });
