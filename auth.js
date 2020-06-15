@@ -8,11 +8,12 @@ const { secret, expiresIn } = jwtConfig;
 const getUserToken = (user) => {
     // Don't store the user's hashed password
     // in the token data.
+    console.log(user)
     const userDataForToken = {
         id: user.id,
         email: user.email,
-        avatarUrl: user.avatarUrl
     };
+
 
     // Create the token.
     const token = jwt.sign(

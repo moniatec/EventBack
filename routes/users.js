@@ -36,9 +36,9 @@ router.post(
         .withMessage("Please provide a username"),
     validateEmailAndPassword,
     asyncHandler(async (req, res) => {
-        const { username, email, password, avatarUrl } = req.body;
+        const { username, email, password } = req.body;
         const hashedPassword = await bcrypt.hash(password, 10);
-        const user = await User.create({ username, email, hashedPassword, avatarUrl });
+        const user = await User.create({ username, email, hashedPassword });
 
         const token = getUserToken(user);
         res.status(201).json({
@@ -58,15 +58,19 @@ router.post(
                 email,
             },
         });
-
+        // console.log(user)
         if (!user || !user.validatePassword(password)) {
+            // if (!user) {
             const err = new Error("Login failed");
             err.status = 401;
             err.title = "Login failed";
             err.errors = ["The provided credentials were invalid."];
             return next(err);
         }
+        // console.log(user)
         const token = getUserToken(user);
+        // console.log(here)
+        // console.log(token)
         res.json({ token, user: { id: user.id } });
     })
 );
