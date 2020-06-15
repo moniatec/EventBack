@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     avatarUrl: {
       type: DataTypes.TEXT,
-      allowNull: false,
+
     }
   }, {});
   User.associate = function (models) {
