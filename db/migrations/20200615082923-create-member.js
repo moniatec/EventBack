@@ -11,16 +11,17 @@ module.exports = {
       userId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: { model: "Users" }
+        references: { model: "Users", key: "id", }
       },
       eventId: {
         allowNull: false,
         type: Sequelize.INTEGER,
-        references: { model: "Events" }
+        references: { model: "Events", key: "id", }
       },
       checkedIn: {
         allowNull: false,
-        type: Sequelize.BOOLEAN
+        type: Sequelize.BOOLEAN,
+        defaultValue: "False"
       },
       createdAt: {
         allowNull: false,
