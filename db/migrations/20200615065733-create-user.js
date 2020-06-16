@@ -25,6 +25,7 @@ module.exports = {
       },
       avatarUrl: {
         type: Sequelize.TEXT,
+        defaultValue: 'https://res.cloudinary.com/dgzcv1mcs/image/upload/v1589817904/bw2djxdddpa1mjpshity.jpg'
       },
       createdAt: {
         allowNull: false,

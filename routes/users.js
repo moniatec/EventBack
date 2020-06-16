@@ -44,6 +44,7 @@ router.post(
         res.status(201).json({
             user: { id: user.id },
             token,
+            currentUserId: user.id,
         });
     })
 );
@@ -58,20 +59,19 @@ router.post(
                 email,
             },
         });
-        // console.log(user)
+
         if (!user || !user.validatePassword(password)) {
-            // if (!user) {
+
             const err = new Error("Login failed");
             err.status = 401;
             err.title = "Login failed";
             err.errors = ["The provided credentials were invalid."];
             return next(err);
         }
-        // console.log(user)
+
         const token = getUserToken(user);
-        // console.log(here)
-        // console.log(token)
-        res.json({ token, user: { id: user.id } });
+
+        res.json({ token, user: { id: user.id }, currentUserId: user.id, });
     })
 );
 
