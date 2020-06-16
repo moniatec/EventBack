@@ -1,2 +1,2 @@
-# Express Sequelize Starter
+# Event
 
