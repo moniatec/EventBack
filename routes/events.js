@@ -7,7 +7,7 @@ const db = require("../db/models");
 
 const { Event, User } = db;
 
-router.use(requireAuth);
+// router.use(requireAuth);
 
 router.get(
     "/",
@@ -62,7 +62,7 @@ router.post(
     asyncHandler(async (req, res) => {
         const { eventName, time, description, location, photoUrl, hostId } = req.body;
         const parsedId = await parseInt(hostId, 10);
-        const tweet = await Tweet.create({ eventName, time, description, location, photoUrl, hostId: parsedId });
+        const event = await Tweet.create({ eventName, time, description, location, photoUrl, hostId: parsedId });
         res.json({ event });
     })
 );
