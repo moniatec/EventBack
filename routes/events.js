@@ -5,7 +5,7 @@ const { requireAuth } = require("../auth");
 const router = express.Router();
 const db = require("../db/models");
 
-const { Event, User } = db;
+const { Event, User, Member } = db;
 
 // router.use(requireAuth);
 
@@ -44,6 +44,7 @@ router.get(
     "/:id",
     asyncHandler(async (req, res, next) => {
         const event = await Event.findOne({
+            include: [{ model: User, as: "host", attributes: ["username", "id"] }],
             where: {
                 id: req.params.id,
             },
@@ -62,7 +63,7 @@ router.post(
     asyncHandler(async (req, res) => {
         const { eventName, time, description, location, photoUrl, hostId } = req.body;
         const parsedId = await parseInt(hostId, 10);
-        const event = await Tweet.create({ eventName, time, description, location, photoUrl, hostId: parsedId });
+        const event = await Event.create({ eventName, time, description, location, photoUrl, hostId: parsedId });
         res.json({ event });
     })
 );
@@ -118,13 +119,28 @@ router.delete(
 
 router.get(
     "/:id/members",
-    requireAuth,
+
     asyncHandler(async (req, res, next) => {
-        const eventId = parseInt(req.params.id, 10);
+        // const eventId = parseInt(req.params.id, 10);
         const members = await Member.findAll({
-            where: { eventId },
+            where: { eventId: req.params.id },
         });
+        // let members = []
+        // console.log(members1)
+        // members2 = res.json({ members1 });
+        // for (let i = 0; i < members2.lenght; i++) {
+
+        //     let id = members2[i].userId
+        //     let user = await User.findOne({
+        //         where: {
+        //             id
+        //         }
+        //     });
+        //     members.push(user)
+        // }
         res.json({ members });
+        // console.log('here')
+        // console.log(users)
     })
 );
 
