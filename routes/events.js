@@ -144,5 +144,23 @@ router.get(
     })
 );
 
+router.post(
+    "/:eventId/join",
+
+    asyncHandler(async (req, res) => {
+        // const eventId = req.params.eventId
+        const { userId } = req.body;
+        const parsedId = await parseInt(userId, 10);
+        // const parsedEventId = await parseInt(eventId, 10);
+        console.log(parsedId)
+        console.log(req.params.eventId)
+        const member = await Member.create({ userId: parsedId, eventId: req.params.eventId, checkedIn: false });
+        console.log(member)
+        res.json({ member });
+
+    })
+
+);
+
 
 module.exports = router;
