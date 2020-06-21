@@ -6,7 +6,7 @@ const { getUserToken, requireAuth } = require("../auth");
 const router = express.Router();
 const db = require("../db/models");
 
-const { User, Event } = db;
+const { User, Event, Member } = db;
 
 const validateEmailAndPassword = [
     check("email")
@@ -77,12 +77,23 @@ router.post(
 
 router.get(
     "/:id/events",
-    requireAuth,
+
     asyncHandler(async (req, res, next) => {
         const userId = parseInt(req.params.id, 10);
+
         const events = await Member.findAll({
+
             where: { userId },
+            attributes: ["eventId"]
         });
+        // console.log(members)
+        // mem = (Object.values(members.stringify()));
+        // const events = await Event.findAll({
+
+        //     where: {
+        //         id: mem
+        //     },
+        // });
         res.json({ events });
     })
 );

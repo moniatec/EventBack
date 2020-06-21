@@ -70,20 +70,20 @@ router.post(
 
 router.put(
     "/:id",
-    validateEvent,
+
     asyncHandler(async (req, res, next) => {
         const event = await Event.findOne({
             where: {
                 id: req.params.id,
             },
         });
-        if (req.user.id !== event.hostId) {
-            const err = new Error("Unauthorized");
-            err.status = 401;
-            err.message = "You are not authorized to edit this event.";
-            err.title = "Unauthorized";
-            throw err;
-        }
+        // if (req.user.id !== event.hostId) {
+        //     const err = new Error("Unauthorized");
+        //     err.status = 401;
+        //     err.message = "You are not authorized to edit this event.";
+        //     err.title = "Unauthorized";
+        //     throw err;
+        // }
         if (event) {
             await event.update({ description: req.body.description }); //may need to add more to update for one event
             res.json({ event });
@@ -101,14 +101,19 @@ router.delete(
                 id: req.params.id,
             },
         });
-        if (req.user.id !== event.hostId) {
-            const err = new Error("Unauthorized");
-            err.status = 401;
-            err.message = "You are not authorized to delete this event.";
-            err.title = "Unauthorized";
-            throw err;
-        }
+        // if (req.user.id !== event.hostId) {
+        //     const err = new Error("Unauthorized");
+        //     err.status = 401;
+        //     err.message = "You are not authorized to delete this event.";
+        //     err.title = "Unauthorized";
+        //     throw err;
+        // }
         if (event) {
+            // const members = await Member.findAll({
+            //     where: { eventId: req.params.id },
+            // });
+            // await members.destroy();
+            await Member.destroy({ where: { eventId: req.params.id } })
             await event.destroy();
             res.json({ message: `Deleted event with id of ${req.params.id}.` });
         } else {
