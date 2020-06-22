@@ -127,8 +127,17 @@ router.get(
 
     asyncHandler(async (req, res, next) => {
         // const eventId = parseInt(req.params.id, 10);
-        const members = await Member.findAll({
-            where: { eventId: req.params.id },
+        // const members = await Member.findAll({
+        //     where: { eventId: req.params.id },
+        // });
+        const members = await Event.findOne({
+            where: { id: req.params.id },
+            include: [{
+                model: User,
+                as: "members"
+            }],
+
+
         });
         // let members = []
         // console.log(members1)
