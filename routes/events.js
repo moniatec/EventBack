@@ -159,9 +159,14 @@ router.post(
         // const parsedEventId = await parseInt(eventId, 10);
         console.log(parsedId)
         console.log(req.params.eventId)
-        const member = await Member.create({ userId: parsedId, eventId: req.params.eventId, checkedIn: false });
-        console.log(member)
-        res.json({ member });
+        const memberExist = await Member.findOne({ where: { userId: parsedId, eventId: req.params.eventId } })
+        if (!memberExist) {
+            const member = await Member.create({ userId: parsedId, eventId: req.params.eventId, checkedIn: false });
+            // console.log(member)
+
+            res.json({ member });
+        }
+
 
     })
 
