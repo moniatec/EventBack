@@ -31,7 +31,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    }).then(() => queryInterface.addConstraint('Members', ['userId', 'eventId'], {
+      type: 'unique',
+      name: 'composite_key_name'
+    }));
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Members');
