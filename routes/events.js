@@ -4,7 +4,8 @@ const { handleValidationErrors, asyncHandler } = require("../utils");
 const { requireAuth } = require("../auth");
 const router = express.Router();
 const db = require("../db/models");
-
+// const { Op } = require("sequelize/types");
+const { Op } = require("sequelize");
 const { Event, User, Member } = db;
 
 // router.use(requireAuth);
@@ -179,6 +180,25 @@ router.post(
 
     })
 
+);
+
+router.post(
+    "/search",
+    asyncHandler(async (req, res) => {
+        const { eventSearch } = req.body;
+        const events = await Event.findAll({
+            where: {
+                eventName: { [Op.iLike]: `%${eventSearch}%` }
+            },
+            attributes: ["eventName", "description", "id", "time", "photoUrl", "location"],
+        })
+        // if (res.ok) {
+        //     console.log('there')
+        //     res.json({ events })
+
+        // }
+        res.json({ events })
+    })
 );
 
 
