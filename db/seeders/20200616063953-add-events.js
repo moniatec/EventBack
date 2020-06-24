@@ -178,7 +178,7 @@ module.exports = {
         {
           eventName: "Stay Home Fest",
           time: "07-07-2020",
-          description: "The team behind Wavy is back with Stayhome Fest, a virtual festival filled with 12+ experiences to bring the Summer vibes to you, in the comfort and safety of your own home. Join us for games, live music, wellness workshops, cooking classes, cocktail making, beer tastings, and more! Our goal is to have people come together in community to enjoy some physically distant laughs.",
+          description: "The team behind Wavy is back with Stayhome Fest, a virtual festival filled with 12+ experiences to bring the Summer vibes to you, in the comfort and safety of your own home. Join us for games, live music, wellness workshops, cooking classes, cocktail making, beer tastings, and more!",
           photoUrl: "https://cdn.dribbble.com/users/3467874/screenshots/10784296/stayhome_4x.jpg",
           location: "Online",
           hostId: "3",
@@ -188,7 +188,7 @@ module.exports = {
         {
           eventName: "Design Night Live",
           time: "07-30-2020",
-          description: "Design Night LIVE is a Saturday night filled with design sketches, games, familiar faces, the unveiling of our first online exhibition and more! During this member-only virtual event, you will live-curate an exhibition featuring your favorite examples of great, impactful design. We will be giving away spectacular prizes, sharing the vision and impact of Design Museum Everywhere, and hearing from designers from around the world about the designs they can’t live without.",
+          description: "Design Night LIVE is a Saturday night filled with design sketches, games, familiar faces, the unveiling of our first online exhibition and more! During this member-only virtual event, you will live-curate an exhibition featuring your favorite examples of great, impactful design.",
           photoUrl: "https://damassets.autodesk.net/content/dam/autodesk/www/campaigns/livedesign-new/livedesign_logo.png",
           location: "Online",
           hostId: "5",
