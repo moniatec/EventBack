@@ -66,6 +66,16 @@ router.post(
         const parsedId = await parseInt(hostId, 10);
         const event = await Event.create({ eventName, time, description, location, photoUrl, hostId: parsedId });
         res.json({ event });
+        const event1 = await Event.findOne({
+            where: {
+                eventName: eventName
+            },
+            attributes: ["id"],
+        })
+        const eventId = res.json({ event1 }).body
+        const member = await Member.create({ userId: parsedId, eventId: eventId, checkedIn: true });
+        res.json({ member })
+
     })
 );
 
