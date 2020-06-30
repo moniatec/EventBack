@@ -756,6 +756,54 @@ module.exports = {
           updatedAt: new Date(),
 
         },
+        {
+          userId: "7",
+          eventId: "20",
+          checkedIn: false,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+
+        },
+        {
+          userId: "7",
+          eventId: "14",
+          checkedIn: true,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+
+        },
+        {
+          userId: "7",
+          eventId: "4",
+          checkedIn: false,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+
+        },
+        {
+          userId: "7",
+          eventId: "1",
+          checkedIn: true,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+
+        },
+        {
+          userId: "7",
+          eventId: "8",
+          checkedIn: true,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+
+        },
+        {
+          userId: "7",
+          eventId: "11",
+          checkedIn: false,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+
+        },
       ],
       { returning: true }
     );
