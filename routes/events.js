@@ -150,22 +150,25 @@ router.get(
 
 
         });
-        // let members = []
-        // console.log(members1)
-        // members2 = res.json({ members1 });
-        // for (let i = 0; i < members2.lenght; i++) {
 
-        //     let id = members2[i].userId
-        //     let user = await User.findOne({
-        //         where: {
-        //             id
-        //         }
-        //     });
-        //     members.push(user)
-        // }
         res.json({ members });
-        // console.log('here')
-        // console.log(users)
+
+    })
+);
+
+router.get(
+    "/:userId/join/members",
+
+    asyncHandler(async (req, res, next) => {
+
+        const members = await Member.findAll({
+            where: { userId: req.params.userId },
+            attributes: ["eventId"]
+        });
+
+
+        res.json({ members });
+
     })
 );
 

@@ -95,14 +95,7 @@ router.get(
 
 
         });
-        // console.log(members)
-        // mem = (Object.values(members.stringify()));
-        // const events = await Event.findAll({
 
-        //     where: {
-        //         id: mem
-        //     },
-        // });
         res.json({ events });
     })
 );
