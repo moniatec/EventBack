@@ -34,7 +34,7 @@ const validateEvent = [
     check("eventName")
         .exists({ checkFalsy: true })
         .withMessage("Event can't be empty."),
-    //  message cannot be longer than 280 characters:
+    //  eventName cannot be longer than 280 characters:
     check("eventtName")
         .isLength({ max: 250 })
         .withMessage("event name can't be longer than 250 characters."),
@@ -66,15 +66,8 @@ router.post(
         const parsedId = await parseInt(hostId, 10);
         const event = await Event.create({ eventName, time, description, location, photoUrl, hostId: parsedId });
 
-        // const event1 = await Event.findOne({
-        //     where: {
-        //         eventName: eventName
-        //     },
-        //     attributes: ["id"],
-        // })
-        // const eventId = res.json({ event1 }).body
         const member = await Member.create({ userId: parsedId, eventId: event.id, checkedIn: true });
-        // res.json({ member })
+
         res.json({ event });
     })
 );
@@ -88,13 +81,7 @@ router.put(
                 id: req.params.id,
             },
         });
-        // if (req.user.id !== event.hostId) {
-        //     const err = new Error("Unauthorized");
-        //     err.status = 401;
-        //     err.message = "You are not authorized to edit this event.";
-        //     err.title = "Unauthorized";
-        //     throw err;
-        // }
+
         if (event) {
             await event.update({ description: req.body.description }); //may need to add more to update for one event
             res.json({ event });
