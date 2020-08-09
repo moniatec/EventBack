@@ -81,11 +81,6 @@ router.get(
     asyncHandler(async (req, res, next) => {
         const userId = parseInt(req.params.id, 10);
 
-        // const events = await Member.findAll({
-
-        //     where: { userId },
-        //     attributes: ["eventId"]
-        // });
         const events = await User.findOne({
             where: { id: userId },
             include: [{

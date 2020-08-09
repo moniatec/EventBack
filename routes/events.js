@@ -4,11 +4,11 @@ const { handleValidationErrors, asyncHandler } = require("../utils");
 const { requireAuth } = require("../auth");
 const router = express.Router();
 const db = require("../db/models");
-// const { Op } = require("sequelize/types");
+
 const { Op } = require("sequelize");
 const { Event, User, Member } = db;
 
-// router.use(requireAuth);
+
 
 router.get(
     "/",
@@ -99,18 +99,9 @@ router.delete(
                 id: req.params.id,
             },
         });
-        // if (req.user.id !== event.hostId) {
-        //     const err = new Error("Unauthorized");
-        //     err.status = 401;
-        //     err.message = "You are not authorized to delete this event.";
-        //     err.title = "Unauthorized";
-        //     throw err;
-        // }
+
         if (event) {
-            // const members = await Member.findAll({
-            //     where: { eventId: req.params.id },
-            // });
-            // await members.destroy();
+
             await Member.destroy({ where: { eventId: req.params.id } })
             await event.destroy();
             res.json({ message: `Deleted event with id of ${req.params.id}.` });
@@ -124,10 +115,7 @@ router.get(
     "/:id/members",
 
     asyncHandler(async (req, res, next) => {
-        // const eventId = parseInt(req.params.id, 10);
-        // const members = await Member.findAll({
-        //     where: { eventId: req.params.id },
-        // });
+
         const members = await Event.findOne({
             where: { id: req.params.id },
             include: [{
@@ -163,16 +151,16 @@ router.post(
     "/:eventId/join",
 
     asyncHandler(async (req, res) => {
-        // const eventId = req.params.eventId
+
         const { userId } = req.body;
         const parsedId = await parseInt(userId, 10);
-        // const parsedEventId = await parseInt(eventId, 10);
+
         console.log(parsedId)
         console.log(req.params.eventId)
         const memberExist = await Member.findOne({ where: { userId: parsedId, eventId: req.params.eventId } })
         if (!memberExist) {
             const member = await Member.create({ userId: parsedId, eventId: req.params.eventId, checkedIn: false });
-            // console.log(member)
+
 
             res.json({ member });
         }
@@ -192,11 +180,7 @@ router.post(
             },
             attributes: ["eventName", "description", "id", "time", "photoUrl", "location"],
         })
-        // if (res.ok) {
-        //     console.log('there')
-        //     res.json({ events })
 
-        // }
         res.json({ events })
     })
 );
