@@ -9,7 +9,7 @@ const { Op } = require("sequelize");
 const { Event, User, Member } = db;
 
 
-
+// get all events 
 router.get(
     "/",
     asyncHandler(async (req, res) => {
@@ -41,6 +41,7 @@ const validateEvent = [
     handleValidationErrors,
 ];
 
+//get event with id passed on the params from the client side
 router.get(
     "/:id",
     asyncHandler(async (req, res, next) => {
@@ -58,6 +59,7 @@ router.get(
     })
 );
 
+//create/set new event 
 router.post(
     "/",
     validateEvent,
@@ -72,6 +74,8 @@ router.post(
     })
 );
 
+
+//edit event(description) with id passed on params
 router.put(
     "/:id",
 
@@ -91,6 +95,8 @@ router.put(
     })
 );
 
+//delete/cancel event with id passed on the params
+//this option is only available for the owner/host
 router.delete(
     "/:id",
     asyncHandler(async (req, res, next) => {
@@ -111,45 +117,35 @@ router.delete(
     })
 );
 
+//get all members for an event with id passed in the params
 router.get(
     "/:id/members",
-
     asyncHandler(async (req, res, next) => {
-
         const members = await Event.findOne({
             where: { id: req.params.id },
             include: [{
                 model: User,
                 as: "members"
             }],
-
-
         });
-
         res.json({ members });
-
     })
 );
 
 router.get(
     "/:userId/join/members",
-
     asyncHandler(async (req, res, next) => {
-
         const members = await Member.findAll({
             where: { userId: req.params.userId },
             attributes: ["eventId"]
         });
-
-
         res.json({ members });
-
     })
 );
 
+//create new member for an event wiht eventId passed in the params from the client side
 router.post(
     "/:eventId/join",
-
     asyncHandler(async (req, res) => {
 
         const { userId } = req.body;
@@ -160,8 +156,6 @@ router.post(
         const memberExist = await Member.findOne({ where: { userId: parsedId, eventId: req.params.eventId } })
         if (!memberExist) {
             const member = await Member.create({ userId: parsedId, eventId: req.params.eventId, checkedIn: false });
-
-
             res.json({ member });
         }
 
@@ -170,6 +164,7 @@ router.post(
 
 );
 
+//get all events matching the name passed from the client side
 router.post(
     "/search",
     asyncHandler(async (req, res) => {

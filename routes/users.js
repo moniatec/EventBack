@@ -19,6 +19,7 @@ const validateEmailAndPassword = [
     handleValidationErrors,
 ];
 
+//get user wiht id
 router.get(
     "/:id",
     requireAuth,
@@ -29,6 +30,7 @@ router.get(
     })
 );
 
+//create/set new user
 router.post(
     "/",
     check("username")
@@ -75,6 +77,7 @@ router.post(
     })
 );
 
+//get all events for a user wiht userId=id passed on the params from the client side
 router.get(
     "/:id/events",
 
