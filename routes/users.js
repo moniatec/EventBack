@@ -86,8 +86,10 @@ router.get(
             where: { id: userId },
             include: [{
                 model: Event,
-                as: "events"
+                as: "events",
+                order: [["time", "DESC"]],
             }],
+
         });
         res.json({ events });
     })
