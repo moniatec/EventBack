@@ -80,24 +80,17 @@ router.post(
 //get all events for a user wiht userId=id passed on the params from the client side
 router.get(
     "/:id/events",
-
     asyncHandler(async (req, res, next) => {
         const userId = parseInt(req.params.id, 10);
-
         const events = await User.findOne({
             where: { id: userId },
             include: [{
                 model: Event,
                 as: "events"
             }],
-
-
         });
-
         res.json({ events });
     })
 );
-
-
 
 module.exports = router;
