@@ -55,10 +55,11 @@ router.post(
     "/token",
     validateEmailAndPassword,
     asyncHandler(async (req, res, next) => {
-        const { email, password } = req.body;
+        const { email, password, username } = req.body;
         const user = await User.findOne({
             where: {
                 email,
+                username
             },
         });
 
