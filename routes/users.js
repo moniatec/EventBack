@@ -22,7 +22,7 @@ const validateEmailAndPassword = [
 //get user wiht id
 router.get(
     "/:id",
-    requireAuth,
+    // requireAuth,
     asyncHandler(async (req, res, next) => {
         const userId = parseInt(req.params.id, 10);
         const user = await User.findByPk(userId);

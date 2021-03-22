@@ -12,6 +12,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 app.use(cors({ origin: true }));
 
+
 app.use("/users", usersRouter);
 app.use("/events", eventsRouter);
 
