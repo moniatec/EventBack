@@ -21,6 +21,9 @@ app.use("/events", eventsRouter);
 
 
 
+
+
+
 app.use((req, res, next) => {
   const err = new Error("The requested resource couldn't be found.");
   err.status = 404;
