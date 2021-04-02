@@ -10,18 +10,12 @@ const app = express();
 
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(cors());
+// app.use(cors());
 app.use(cors({ origin: '*' }));
 
 
 app.use("/users", usersRouter);
 app.use("/events", eventsRouter);
-
-
-
-
-
-
 
 
 app.use((req, res, next) => {
