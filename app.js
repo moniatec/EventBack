@@ -7,11 +7,13 @@ const eventsRouter = require("./routes/events");
 const { environment } = require('./config');
 
 const app = express();
+// app.use(cors({ origin: false }));
 
 app.use(morgan("dev"));
 app.use(express.json());
 // app.use(cors());
 app.use(cors({ origin: '*' }));
+
 
 
 app.use("/users", usersRouter);
