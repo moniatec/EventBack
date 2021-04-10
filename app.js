@@ -26,6 +26,12 @@ app.use((req, res, next) => {
   next(err);
 });
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "https://cool-events.herokuapp.com/"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 // Process sequelize errors
 app.use((err, req, res, next) => {
   // check if error is a Sequelize error:
