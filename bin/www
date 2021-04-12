@@ -1,18 +1,19 @@
 #!/usr/bin/env node
 
 const { port } = require("../config");
+const host = process.env.HOST || '0.0.0.0';
 
 const app = require("../app");
 const db = require("../db/models");
 
 var cors_proxy = require('cors-anywhere');
-cors_proxy.createServer({
-  originWhitelist: [], // Allow all origins
-  requireHeader: ['origin', 'x-requested-with'],
-  removeHeaders: ['cookie', 'cookie2']
-}).listen(port, host, function () {
-  console.log('Running CORS Anywhere on ' + host + ':' + port);
-});
+// cors_proxy.createServer({
+//   originWhitelist: [], // Allow all origins
+//   requireHeader: ['origin', 'x-requested-with'],
+//   removeHeaders: ['cookie', 'cookie2']
+// }).listen(port, host, function () {
+//   console.log('Running CORS Anywhere on ' + host + ':' + port);
+// });
 
 // Check the database connection before starting the app.
 db.sequelize
@@ -21,9 +22,16 @@ db.sequelize
     console.log("Database connection success! Sequelize is ready to use...");
 
     // Start listening for connections.
-    app.listen(port, () => console.log(`Listening on port ${port}...`));
-  })
-  .catch((err) => {
-    console.log("Database connection failure.");
-    console.error(err);
-  });
+    //   app.listen(port, () => console.log(`Listening on port ${port}...`));
+    // })
+    cors_proxy.createServer({
+      originWhitelist: [], // Allow all origins
+      requireHeader: ['origin', 'x-requested-with'],
+      removeHeaders: ['cookie', 'cookie2']
+    }).listen(port, host, function () {
+      console.log('Running CORS Anywhere on ' + host + ':' + port);
+    })
+      .catch((err) => {
+        console.log("Database connection failure.");
+        console.error(err);
+      })
