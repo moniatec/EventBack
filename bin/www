@@ -5,6 +5,15 @@ const { port } = require("../config");
 const app = require("../app");
 const db = require("../db/models");
 
+var cors_proxy = require('cors-anywhere');
+cors_proxy.createServer({
+  originWhitelist: [], // Allow all origins
+  requireHeader: ['origin', 'x-requested-with'],
+  removeHeaders: ['cookie', 'cookie2']
+}).listen(port, host, function () {
+  console.log('Running CORS Anywhere on ' + host + ':' + port);
+});
+
 // Check the database connection before starting the app.
 db.sequelize
   .authenticate()
