@@ -5,6 +5,8 @@ const { ValidationError } = require("sequelize");
 const usersRouter = require("./routes/users");
 const eventsRouter = require("./routes/events");
 const { environment } = require('./config');
+// const isProduction = environment === 'production'
+// const helmet = require("helmet")
 
 const app = express();
 // app.use(cors({ origin: false }));
@@ -14,8 +16,27 @@ app.use(express.json());
 // app.use(cors());
 app.use(cors({ origin: '*' }));
 
+// if (!isProduction) {
+//   // enable cors only in development
+//   app.use(cors());
+// }
+
+// // helmet helps set a variety of headers to better secure your app
+// app.use(helmet({
+//   contentSecurityPolicy: false
+// }));
 
 
+// Set the _csrf token and create req.csrfToken method
+// app.use(
+//   csurf({
+//     cookie: {
+//       secure: isProduction,
+//       sameSite: isProduction && "Lax",
+//       httpOnly: true,
+//     },
+//   })
+// );
 
 app.use("/users", usersRouter);
 app.use("/events", eventsRouter);
